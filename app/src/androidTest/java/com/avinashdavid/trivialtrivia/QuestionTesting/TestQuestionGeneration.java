@@ -3,11 +3,8 @@ package com.avinashdavid.trivialtrivia.QuestionTesting;
 import android.test.AndroidTestCase;
 
 import com.avinashdavid.trivialtrivia.questions.IndividualQuestion;
-import com.avinashdavid.trivialtrivia.questions.QuestionsHandling;
 import com.avinashdavid.trivialtrivia.web.services.LocalQuestionService;
-import com.avinashdavid.trivialtrivia.web.services.QuestionsService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
