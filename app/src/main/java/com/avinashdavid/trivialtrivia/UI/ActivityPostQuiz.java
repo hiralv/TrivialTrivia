@@ -16,8 +16,12 @@ import com.avinashdavid.trivialtrivia.R;
 import com.avinashdavid.trivialtrivia.UI.Adapters.CardAdapter;
 import com.avinashdavid.trivialtrivia.scoring.QuestionScorer;
 import com.avinashdavid.trivialtrivia.scoring.QuizScorer;
+import com.avinashdavid.trivialtrivia.services.SendDeviceDetails;
 
 import java.util.ArrayList;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.json.JSONException;
 
 public class ActivityPostQuiz extends AppCompatActivity {
     private ArrayList<QuestionScorer> mQuestionScorers;
@@ -54,9 +58,22 @@ public class ActivityPostQuiz extends AppCompatActivity {
         mQuizNumber = intent.getIntExtra(KEY_QUIZ_NUMBER, 0);
         mQuizScorer = QuizScorer.getInstance(this, mQuizSize, mQuizNumber);
         mQuestionScorers = mQuizScorer.getQuestionScorers();
+        //String json = new Gson().toJson(mQuizScorer);
         try {
             TextView scoreView = (TextView) findViewById(R.id.scoreTextView);
-            scoreView.setText(Integer.toString(mQuizScorer.scoreQuiz(mQuestionScorers)));
+            String score = Integer.toString(mQuizScorer.scoreQuiz(mQuestionScorers));
+            scoreView.setText(score);
+            String json = "{ \"userid\": \"500\", \"testscore\": \"" + score + "\", \"quizid\": \"101\" }";
+
+            //
+            try {
+
+                new SendDeviceDetails().execute("http://52.173.186.160:8083/quizresult", json);
+               // new SendDeviceDetails().makeRequest("http://52.173.186.160:8083/quizresult", json);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //
             scoreView.setTextSize(getResources().getDimension(R.dimen.score_textsize));
             ((TextView) findViewById(R.id.quizLengthTextView)).setText(Integer.toString(mQuestionScorers.size()));
         } catch (Exception e){
@@ -90,6 +107,8 @@ public class ActivityPostQuiz extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         super.onPause();
     }
+
+
 
 
 //    public class CardAdapter extends ArrayAdapter<QuestionScorer>{
