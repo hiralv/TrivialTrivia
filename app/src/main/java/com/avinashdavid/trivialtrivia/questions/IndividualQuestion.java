@@ -56,11 +56,12 @@ public class IndividualQuestion implements Parcelable {
 //        this.correctAnswer = correctAnswer;
 //    }
 
-    public IndividualQuestion(String category, String question, String[] answersList, int correctAnswer) {
+    public IndividualQuestion(String category, String question, String[] answersList, int correctAnswer, String rationale) {
         this.category = categoryList.indexOf(category);
         this.question = question;
         this.choicesList = answersList;
         this.correctAnswer = correctAnswer;
+        this.rationale = rationale;
     }
 
     public IndividualQuestion(Parcel parcel){
@@ -70,6 +71,7 @@ public class IndividualQuestion implements Parcelable {
         parcel.readStringArray(choicesList);
         this.choicesList = choicesList;
         this.correctAnswer = parcel.readInt();
+        this.rationale = parcel.readString();
     }
 
     @Override
@@ -78,6 +80,7 @@ public class IndividualQuestion implements Parcelable {
         parcel.writeString(question);
         parcel.writeStringArray(choicesList);
         parcel.writeInt(correctAnswer);
+        parcel.writeString(rationale);
     }
 
     @Override
