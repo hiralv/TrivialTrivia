@@ -27,6 +27,7 @@
     <string name="question">Question: </string>
     <string name="you_selected">You selected: </string>
     <string name="correct_answer">Correct Answer: </string>
+    <string name="rationale">Rationale: </string>
 
     <!--post quiz statistics-->
     <string name="average_time_right_answers">Average time taken on right answers</string>

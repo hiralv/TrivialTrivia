@@ -15,6 +15,7 @@ public class IndividualQuestion implements Parcelable {
     public String question;
     public String[] choicesList;
     public int correctAnswer;
+    public String rationale;
 
     public static final int CATEGORY_GENERAL = 0;
     public static final int CATEGORY_SCIENCE = 1;

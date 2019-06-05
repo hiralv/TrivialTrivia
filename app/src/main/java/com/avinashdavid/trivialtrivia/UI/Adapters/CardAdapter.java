@@ -34,6 +34,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         public TextView questionTextview;
         public TextView youselectedTextview;
         public TextView correctanswerTextview;
+        public TextView rationaleTextview;
 
         public ViewHolder(View itemView) {
             // Stores the itemView in a public final member variable that can be used
@@ -44,6 +45,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                 questionTextview = (TextView) itemView.findViewById(R.id.question);
                 youselectedTextview = (TextView) itemView.findViewById(R.id.you_selected);
                 correctanswerTextview = (TextView) itemView.findViewById(R.id.correct_answer);
+                rationaleTextview = (TextView) itemView.findViewById(R.id.rationale);
             }
         }
     }
@@ -114,6 +116,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
             } else {
                 holder.youselectedTextview.setTextColor(mContext.getResources().getColor(R.color.wrongAnswerRed));
             }
+            holder.rationaleTextview.setText(individualQuestion.rationale);
+            holder.rationaleTextview.setTextColor(mContext.getResources().getColor(R.color.black));
         }
     }
 
