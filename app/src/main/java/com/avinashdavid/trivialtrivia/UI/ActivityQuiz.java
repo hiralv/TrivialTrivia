@@ -21,16 +21,23 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.avinashdavid.trivialtrivia.APIConstants;
 import com.avinashdavid.trivialtrivia.R;
+import com.avinashdavid.trivialtrivia.Utils.HttpUtils;
 import com.avinashdavid.trivialtrivia.data.QuizDBContract;
 import com.avinashdavid.trivialtrivia.questions.IndividualQuestion;
 import com.avinashdavid.trivialtrivia.questions.QuestionsHandling;
 import com.avinashdavid.trivialtrivia.scoring.QuestionScorer;
 import com.avinashdavid.trivialtrivia.scoring.QuizScorer;
 import com.avinashdavid.trivialtrivia.services.InsertRecordsService;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cz.msebera.android.httpclient.Header;
 
 public class ActivityQuiz extends AppCompatActivity {
     private int QUIZ_NUMBER;
@@ -66,6 +73,8 @@ public class ActivityQuiz extends AppCompatActivity {
     private boolean hasVibrator;
     private Vibrator mVibrator;
     private static final int vibrationMillis = 50;
+
+    private QuestionsHandling questionsHandling;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,16 +112,33 @@ public class ActivityQuiz extends AppCompatActivity {
             mCurrentSeconds = maxTime;
         }
 
-
         sQuizScorer = QuizScorer.getInstance(this, mQuizSize, QUIZ_NUMBER);
-        sIndividualQuestions = QuestionsHandling.getInstance(this.getApplicationContext(), QUIZ_NUMBER).getRandomQuestionSet(mQuizSize, QUIZ_NUMBER);
+
+        HttpUtils.get(APIConstants.QUESTION,null,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                start(response);
+                Log.d("ActivityQuiz", response.toString());
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.d("ActivityQuiz", responseString.toString());
+                //TODO Throw exception
+
+            }
+        });
+
+
+    }
+
+    private void start(JSONObject response) {
+        questionsHandling = QuestionsHandling.getInstance(this.getApplicationContext(), QUIZ_NUMBER);
+        questionsHandling.setJsonObject(response);
+        sIndividualQuestions = questionsHandling.getRandomQuestionSet(mQuizSize, QUIZ_NUMBER);
         mCurrentDisplayQuestion = QuestionsHandling.makeDisplayQuestionObject(sIndividualQuestions.get(mQuestionNumber));
-
-
 //        mCardView = (CardView) findViewById(R.id.card_view);
 //        mListView = (ListView)rootview.findViewById(R.id.choices_listview);
-
-
         mNumberTextView = (TextView)findViewById(R.id.questionNumber_textview);
         mCategoryTextView = (TextView)findViewById(R.id.category_textview);
         mSecondsTextview = (TextView)findViewById(R.id.seconds_display);

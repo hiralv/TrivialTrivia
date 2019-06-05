@@ -5,6 +5,8 @@ import android.content.Context;
 import com.avinashdavid.trivialtrivia.web.services.LocalQuestionService;
 import com.avinashdavid.trivialtrivia.web.services.QuestionsService;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,6 @@ public class QuestionsHandling {
     private static QuestionsHandling sQuestionsHandling;
     private List<IndividualQuestion> mCurrentSetOfQuestions;
     private static int QUIZ_NUMBER = -1;
-
 
 
     //indices of the elements in the ArrayList created by makeDisplayQuestionObject method
@@ -65,5 +66,9 @@ public class QuestionsHandling {
         displayList.add(INDEX_CHOICE_3, thisQuestion.choicesList[2]);
         displayList.add(INDEX_CHOICE_4, thisQuestion.choicesList[3]);
         return displayList;
+    }
+
+    public void setJsonObject(JSONObject jsonObject){
+        questionsService.setJsonObject(jsonObject);
     }
 }

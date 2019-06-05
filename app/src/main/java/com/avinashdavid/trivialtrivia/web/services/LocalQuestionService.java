@@ -29,7 +29,7 @@ public class LocalQuestionService implements QuestionsService {
     private ArrayList<IndividualQuestion> mALLIndividualQuestions;
 
     public LocalQuestionService(Context mContext) {
-        this.mALLIndividualQuestions = makeOrReturnMasterQuestionList(mContext);
+//        this.mALLIndividualQuestions = makeOrReturnMasterQuestionList(mContext);
     }
 
     @Override
@@ -42,34 +42,14 @@ public class LocalQuestionService implements QuestionsService {
         return returnList;
     }
 
-    //convert JSON file into String for use with JSONObject methods.
-    private String loadJSONFromAsset(Context mContext) {
-        String json = null;
-        try {
-            InputStream is = mContext.getAssets().open("questionsJSON.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
-    }
-
     //convert JSON string into ArrayList of IndividualQuestion objects or return previously constructed list
-    private ArrayList<IndividualQuestion> makeOrReturnMasterQuestionList(Context mContext){
-        String json = loadJSONFromAsset(mContext);
-
+    private ArrayList<IndividualQuestion> makeOrReturnMasterQuestionList(JSONObject wholeObject){
         if (mALLIndividualQuestions !=null){
             //CHANGE THIS WHEN TOTAL NUMBER OF AVAILABLE QUESTIONS CHANGES
             if (mALLIndividualQuestions.size() >= 195)
                 return mALLIndividualQuestions;
         }
         try {
-            JSONObject wholeObject = new JSONObject(json);
             JSONArray questionsArray = wholeObject.getJSONArray(KEY_ALL_QUESTIONS);
             mALLIndividualQuestions = new ArrayList<IndividualQuestion>(questionsArray.length());
             for (int i = 0; i < questionsArray.length(); i++){
@@ -94,5 +74,10 @@ public class LocalQuestionService implements QuestionsService {
     //return the full set of questions (initialized at object creation)
     public List<IndividualQuestion> getFullQuestionSet(){
         return mALLIndividualQuestions;
+    }
+
+    @Override
+    public void setJsonObject(JSONObject jsonObject) {
+        this.mALLIndividualQuestions = makeOrReturnMasterQuestionList(jsonObject);
     }
 }

@@ -33,4 +33,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.4.0'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.6'
+    compile 'com.loopj.android:android-async-http:1.4.9'
 }
