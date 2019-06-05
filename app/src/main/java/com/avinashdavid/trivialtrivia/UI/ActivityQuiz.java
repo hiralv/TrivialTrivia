@@ -3,10 +3,10 @@ package com.avinashdavid.trivialtrivia.UI;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
@@ -21,13 +21,17 @@ import android.widget.TextView;
 import com.avinashdavid.trivialtrivia.R;
 import com.avinashdavid.trivialtrivia.data.QuizDBContract;
 import com.avinashdavid.trivialtrivia.questions.IndividualQuestion;
-import com.avinashdavid.trivialtrivia.questions.QuestionsHandling;
 import com.avinashdavid.trivialtrivia.scoring.QuestionScorer;
 import com.avinashdavid.trivialtrivia.scoring.QuizScorer;
 import com.avinashdavid.trivialtrivia.services.InsertRecordsService;
+import com.avinashdavid.trivialtrivia.web.services.RemoteQuestionService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ActivityQuiz extends AppCompatActivity {
     private int QUIZ_NUMBER;
@@ -101,13 +105,29 @@ public class ActivityQuiz extends AppCompatActivity {
 
 
         sQuizScorer = QuizScorer.getInstance(this, mQuizSize, QUIZ_NUMBER);
-        sIndividualQuestions = QuestionsHandling.getInstance(this.getApplicationContext(), QUIZ_NUMBER).getRandomQuestionSet(mQuizSize, QUIZ_NUMBER);
+//        sIndividualQuestions = QuestionsHandling.getInstance(this.getApplicationContext(), QUIZ_NUMBER).getRandomQuestionSet(mQuizSize, QUIZ_NUMBER);
 
 
 //        mCardView = (CardView) findViewById(R.id.card_view);
 //        mListView = (ListView)rootview.findViewById(R.id.choices_listview);
 
+        RemoteQuestionService questionsService = new RemoteQuestionService();
+        questionsService.getQuestions(new Callback<RemoteQuestionService.Questions>() {
+            @Override
+            public void onResponse(Call<RemoteQuestionService.Questions> call, Response<RemoteQuestionService.Questions> response) {
+                start(response.body().getQuestions());
+            }
 
+            @Override
+            public void onFailure(Call<RemoteQuestionService.Questions> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private void start(List<IndividualQuestion> questions) {
+        sIndividualQuestions = questions;
         mNumberTextView = (TextView)findViewById(R.id.questionNumber_textview);
         mCategoryTextView = (TextView)findViewById(R.id.category_textview);
         mSecondsTextview = (TextView)findViewById(R.id.seconds_display);
@@ -147,20 +167,6 @@ public class ActivityQuiz extends AppCompatActivity {
 //        mPreviousQuestionButton = (Button)findViewById(R.id.buttonPreviousQuestion);
 
         setAndUpdateChoiceTextViews(mQuestionNumber);
-
-
-//        mNextQuestionButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                goToNextQuestion();
-//            }
-//        });
-//        mPreviousQuestionButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                goToPreviousQuestion();
-//            }
-//        });
     }
 
     @Override
@@ -208,8 +214,8 @@ public class ActivityQuiz extends AppCompatActivity {
             updateFragmentTraditional();
         }
         mNumberTextView.setText(Integer.toString(mQuestionNumber+1));
-        IndividualQuestion individualQuestion = sIndividualQuestions.get(questionNumber);
-        mCategoryTextView.setText(IndividualQuestion.categoryList.get(individualQuestion.category));
+//        IndividualQuestion individualQuestion = sIndividualQuestions.get(questionNumber);
+//        mCategoryTextView.setText(individualQuestion.category);
 
         if (mCountDownTimer==null){
             mCountDownTimer = new CountDownTimer((mCurrentSeconds+2)*1000,1000) {
