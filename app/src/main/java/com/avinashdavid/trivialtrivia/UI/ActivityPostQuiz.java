@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,10 @@ import com.avinashdavid.trivialtrivia.scoring.QuestionScorer;
 import com.avinashdavid.trivialtrivia.scoring.QuizScorer;
 import com.avinashdavid.trivialtrivia.services.SendDeviceDetails;
 
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -50,7 +55,10 @@ public class ActivityPostQuiz extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
+        /*ImageView imageView = (ImageView)findViewById(R.id.imageview_Pie);
+        imageView.getLayoutParams().height = 300                                                                                                                                ;
+        imageView.getLayoutParams().width = 300;
+        ((ImageView)findViewById(R.id.imageview_Pie)).setImageDrawable(getRoundedDrawable("start.jpg"));*/
         mRecyclerView = (RecyclerView) findViewById(R.id.cards_listview);
 //        mRecyclerView.setDividerHeight(Float.valueOf(getResources().getDimension(R.dimen.activity_vertical_margin)).intValue());
         Intent intent = getIntent();
@@ -108,7 +116,17 @@ public class ActivityPostQuiz extends AppCompatActivity {
         super.onPause();
     }
 
-
+    private RoundedBitmapDrawable getRoundedDrawable(String filename){
+        try {
+            RoundedBitmapDrawable dr = RoundedBitmapDrawableFactory.create(getResources(), getAssets().open(filename));
+            dr.setCornerRadius(500);
+            return dr;
+        }
+        catch (IOException e){
+//            Log.d("imageHandling", e.toString());
+        }
+        return null;
+    }
 
 
 //    public class CardAdapter extends ArrayAdapter<QuestionScorer>{

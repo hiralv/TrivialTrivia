@@ -21,6 +21,15 @@
             android:layout_height="match_parent"
             android:gravity="center">
 
+            <ImageView
+                android:id="@+id/imageview_Pie"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:src="@drawable/result_pie"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"/>
+
             <TextView
                 android:padding="@dimen/activity_horizontal_margin"
                 android:layout_width="wrap_content"
