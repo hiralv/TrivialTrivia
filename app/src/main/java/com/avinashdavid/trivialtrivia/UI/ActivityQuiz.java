@@ -137,7 +137,7 @@ public class ActivityQuiz extends AppCompatActivity {
         questionsHandling = QuestionsHandling.getInstance(this.getApplicationContext(), QUIZ_NUMBER);
         questionsHandling.setJsonObject(response);
         sIndividualQuestions = questionsHandling.getRandomQuestionSet(mQuizSize, QUIZ_NUMBER);
-        mCurrentDisplayQuestion = QuestionsHandling.makeDisplayQuestionObject(sIndividualQuestions.get(mQuestionNumber));
+        mCurrentDisplayQuestion = questionsHandling.makeDisplayQuestionObject(sIndividualQuestions.get(mQuestionNumber));
 //        mCardView = (CardView) findViewById(R.id.card_view);
 //        mListView = (ListView)rootview.findViewById(R.id.choices_listview);
         mNumberTextView = (TextView)findViewById(R.id.questionNumber_textview);
@@ -234,7 +234,7 @@ public class ActivityQuiz extends AppCompatActivity {
 
     //updates the mCurrentDisplayQuestion object and text of the respective textviews
     private void setAndUpdateChoiceTextViews(int questionNumber){
-        mCurrentDisplayQuestion = QuestionsHandling.makeDisplayQuestionObject(sIndividualQuestions.get(questionNumber));
+        mCurrentDisplayQuestion = questionsHandling.makeDisplayQuestionObject(sIndividualQuestions.get(questionNumber));
 //        mQuestionView.setText(mCurrentDisplayQuestion.get(QuestionsHandling.INDEX_QUESTION));
 //        mChoice1TextView.setText(mCurrentDisplayQuestion.get(QuestionsHandling.INDEX_CHOICE_1));
 //        mChoice2TextView.setText(mCurrentDisplayQuestion.get(QuestionsHandling.INDEX_CHOICE_2));
