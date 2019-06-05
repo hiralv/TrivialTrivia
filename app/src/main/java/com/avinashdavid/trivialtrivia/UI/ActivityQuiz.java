@@ -32,6 +32,7 @@ import com.avinashdavid.trivialtrivia.scoring.QuizScorer;
 import com.avinashdavid.trivialtrivia.services.InsertRecordsService;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public class ActivityQuiz extends AppCompatActivity {
     private Vibrator mVibrator;
     private static final int vibrationMillis = 50;
 
-    private QuestionsHandling questionsHandling;
+    public static QuestionsHandling questionsHandling;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,8 +118,8 @@ public class ActivityQuiz extends AppCompatActivity {
         HttpUtils.get(APIConstants.QUESTION,null,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                start(response);
                 Log.d("ActivityQuiz", response.toString());
+                start(response);
             }
 
             @Override

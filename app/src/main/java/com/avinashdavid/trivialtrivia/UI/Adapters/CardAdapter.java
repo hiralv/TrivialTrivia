@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.avinashdavid.trivialtrivia.R;
+import com.avinashdavid.trivialtrivia.UI.ActivityQuiz;
 import com.avinashdavid.trivialtrivia.questions.IndividualQuestion;
 import com.avinashdavid.trivialtrivia.questions.QuestionsHandling;
 import com.avinashdavid.trivialtrivia.scoring.QuestionScorer;
@@ -70,7 +71,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 //        }
         mData = new ArrayList<>(questionScorers.size());
         mData.addAll(questionScorers);
-        individualQuestions = QuestionsHandling.getInstance(mContext, QuizScorer.sQuizNumber).getFullQuestionSet();
+        individualQuestions = ActivityQuiz.questionsHandling.getFullQuestionSet();
     }
 
     private Context getContext() {
