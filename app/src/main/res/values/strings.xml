@@ -4,14 +4,18 @@
     <string name="statistics">Statistics</string>
     <string name="instructions">Instructions</string>
     <string name="acknowledgements">Acknowledgements</string>
+    <string name="socialize">Socialize</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="logout">Logout</string>
 
     <!--welcome page subtitles-->
-    <string name="start_subtitle">200 seconds of pain!</string>
-    <string name="statistics_subtitle">They\'re already calculated</string>
+    <string name="start_subtitle">It just takes 200 seconds</string>
+    <string name="statistics_subtitle">Let\'s see how you performed</string>
     <string name="instructions_subtitle">Pretty simple, I promise</string>
     <string name="acknowledgements_subtitle">Question and image sources</string>
+    <string name="socialize_subtitle">Let\'s discuss about it</string>
+    <string name="logout_subtitle">GoodBye</string>
 
     <string name="no_stats">There are no statistics. Please complete a quiz first.</string>
 

@@ -24,6 +24,7 @@ import com.avinashdavid.trivialtrivia.questions.IndividualQuestion;
 import com.avinashdavid.trivialtrivia.scoring.QuestionScorer;
 import com.avinashdavid.trivialtrivia.scoring.QuizScorer;
 import com.avinashdavid.trivialtrivia.services.InsertRecordsService;
+import com.avinashdavid.trivialtrivia.web.services.LocalQuestionService;
 import com.avinashdavid.trivialtrivia.web.services.RemoteQuestionService;
 
 import java.util.ArrayList;
@@ -120,7 +121,7 @@ public class ActivityQuiz extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<RemoteQuestionService.Questions> call, Throwable t) {
-
+                start(new LocalQuestionService(getBaseContext()).getQuestions(10));
             }
         });
 
