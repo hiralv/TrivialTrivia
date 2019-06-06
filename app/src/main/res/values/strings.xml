@@ -136,10 +136,12 @@
     <string name="reg_gradeLevel">Grade Level</string>
     <string name="reg_course">Course</string>
     <string name="reg_continue">Continue</string>
+    <string name="reg_invalid">Invalid fields</string>
+    <string name="reg_passwordNotMatched">Passwords don\'t match</string>
 
     <!--Gender-->
     <string-array name="gender">
-        <item>Select Gender</item>
+        <item></item>
         <item>Male</item>
         <item>Female</item>
     </string-array>
@@ -147,7 +149,7 @@
 
     <!--Course-->
     <string-array name="courses">
-        <item>Select Course</item>
+        <item></item>
         <item>Economics</item>
         <item>Personal Finance</item>
         <item>Business Class</item>
@@ -164,7 +166,7 @@
 
     <!--Grade Level-->
     <string-array name="gradeLevel">
-        <item>Select Grade</item>
+        <item></item>
         <item>9th Grade</item>
         <item>10th Grade</item>
         <item>11th Grade</item>
