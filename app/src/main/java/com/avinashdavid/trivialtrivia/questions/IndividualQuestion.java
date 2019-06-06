@@ -11,6 +11,7 @@ import java.util.Arrays;
  */
 
 public class IndividualQuestion implements Parcelable {
+    public String categoryText;
     public int category;
     public String question;
     public String[] choicesList;
@@ -30,33 +31,8 @@ public class IndividualQuestion implements Parcelable {
         return categoryList;
     }
 
-    //    private static void createCategoryList(){
-//        if (categoryList == null){
-//            categoryList =  new ArrayList<String>(5);
-//            categoryList.add(0,"general");
-//            categoryList.add(1,"science");
-//            categoryList.add(2,"world");
-//            categoryList.add(3,"science");
-//            categoryList.add(4,"sports");
-//        }
-//    }
-
-
-//    public IndividualQuestion(int category, String question, String[] choicesList, int correctAnswer) {
-//        this.category = category;
-//        this.question = question;
-//        this.choicesList = choicesList;
-//        this.correctAnswer = correctAnswer;
-//    }
-//
-//    public IndividualQuestion(String category, String question, String[] answersList, int correctAnswer) {
-//        this.category = categoryList.indexOf(category);
-//        this.question = question;
-//        this.choicesList = answersList;
-//        this.correctAnswer = correctAnswer;
-//    }
-
     public IndividualQuestion(String category, String question, String[] answersList, int correctAnswer, String rationale) {
+        this.categoryText = category;
         this.category = categoryList.indexOf(category);
         this.question = question;
         this.choicesList = answersList;
