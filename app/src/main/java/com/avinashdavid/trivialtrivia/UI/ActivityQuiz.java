@@ -103,7 +103,7 @@ public class ActivityQuiz extends AppCompatActivity {
             mCurrentSeconds = maxTime;
         }
 
-
+       // selectDifficultyLevel();
         sQuizScorer = QuizScorer.getInstance(this, mQuizSize, QUIZ_NUMBER);
 //        sIndividualQuestions = QuestionsHandling.getInstance(this.getApplicationContext(), QUIZ_NUMBER).getRandomQuestionSet(mQuizSize, QUIZ_NUMBER);
 
@@ -125,7 +125,13 @@ public class ActivityQuiz extends AppCompatActivity {
         });
 
     }
-
+protected void selectDifficultyLevel()
+{
+    Intent intent = new Intent(this, ActivityPostQuiz.class);
+    intent.putExtra(ActivityPostQuiz.KEY_QUIZ_SIZE, mQuizSize);
+    intent.putExtra(ActivityPostQuiz.KEY_QUIZ_NUMBER, QUIZ_NUMBER);
+    startActivity(intent);
+}
     private void start(List<IndividualQuestion> questions) {
         sIndividualQuestions = questions;
         mNumberTextView = (TextView)findViewById(R.id.questionNumber_textview);
@@ -217,8 +223,10 @@ public class ActivityQuiz extends AppCompatActivity {
 //        IndividualQuestion individualQuestion = sIndividualQuestions.get(questionNumber);
 //        mCategoryTextView.setText(individualQuestion.category);
 
-        if (mCountDownTimer==null){
-            mCountDownTimer = new CountDownTimer((mCurrentSeconds+2)*1000,1000) {
+        if (mCountDownTimer==null)
+        {
+            mCountDownTimer = new CountDownTimer((mCurrentSeconds+2)*1000,1000)
+            {
                 @Override
                 public void onTick(long l) {
                     mProgressBar.setProgress(mCurrentSeconds);

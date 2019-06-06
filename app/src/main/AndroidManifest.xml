@@ -24,7 +24,13 @@
             android:authorities="com.avinashdavid.trivialtrivia.data"
             android:enabled="true"
             android:exported="false"/>
-
+        <activity
+            android:name=".UI.SelectDifficultyLevel"
+            android:parentActivityName=".UI.ActivityWelcomePage"
+            android:theme="@style/AppTheme.Launcher"
+            android:noHistory="true"
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".UI.ActivityQuiz"
             android:parentActivityName=".UI.ActivityWelcomePage"

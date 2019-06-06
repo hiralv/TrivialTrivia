@@ -91,6 +91,19 @@
         <item>Sports</item>
     </string-array>
 
+    <!--Select Difficulty Level-->
+    <string name="select_difficulty_level">Select Difficulty Level</string>
+    <string name="submit_difficulty_level_button">On Your Mark, Get Set, Go!...</string>
+    <string name="set_difficulty_level">Set The Terrain</string>
+
+    <string-array name="difficulty_level">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Difficult</item>
+    </string-array>
+
+    <string name="difficulty_level_prompt">Select Gender</string>
+
     <!--Login-->
     <string name="username">Username</string>
     <string name="password">Password</string>

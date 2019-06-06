@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.avinashdavid.trivialtrivia.R;
 import com.avinashdavid.trivialtrivia.UI.Adapters.CardAdapter;
+import com.avinashdavid.trivialtrivia.data.DataHolder;
 import com.avinashdavid.trivialtrivia.scoring.QuestionScorer;
 import com.avinashdavid.trivialtrivia.scoring.QuizScorer;
 import com.avinashdavid.trivialtrivia.services.SendDeviceDetails;
@@ -71,7 +72,8 @@ public class ActivityPostQuiz extends AppCompatActivity {
             TextView scoreView = (TextView) findViewById(R.id.scoreTextView);
             String score = Integer.toString(mQuizScorer.scoreQuiz(mQuestionScorers));
             scoreView.setText(score);
-            String json = "{ \"userid\": \"cary7\", \"testscore\": \"" + score + "\", \"quizid\": \"101\" }";
+
+            String json = "{ \"userid\": \"" + DataHolder.userId + "\", \"testscore\": \"" + score + "\", \"quizid\": \"101\" }";
 
             //
             try {
