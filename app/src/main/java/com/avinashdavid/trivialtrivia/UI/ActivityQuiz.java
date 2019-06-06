@@ -24,8 +24,9 @@ import com.avinashdavid.trivialtrivia.questions.IndividualQuestion;
 import com.avinashdavid.trivialtrivia.scoring.QuestionScorer;
 import com.avinashdavid.trivialtrivia.scoring.QuizScorer;
 import com.avinashdavid.trivialtrivia.services.InsertRecordsService;
+import com.avinashdavid.trivialtrivia.web.data.Questions;
 import com.avinashdavid.trivialtrivia.web.services.LocalQuestionService;
-import com.avinashdavid.trivialtrivia.web.services.RemoteQuestionService;
+import com.avinashdavid.trivialtrivia.web.services.RemoteService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,18 +76,18 @@ public class ActivityQuiz extends AppCompatActivity {
         currentVersionCode = android.os.Build.VERSION.SDK_INT;
         setContentView(R.layout.activity_quiz);
         setupWindowAnimations();
-        setSupportActionBar((Toolbar)findViewById(R.id.toolbar));
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        hasVibrator = ((Vibrator)getSystemService(VIBRATOR_SERVICE)).hasVibrator();
-        if (hasVibrator){
-            mVibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+        hasVibrator = ((Vibrator) getSystemService(VIBRATOR_SERVICE)).hasVibrator();
+        if (hasVibrator) {
+            mVibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         }
 
         maxTime = 20;
 
-        if (savedInstanceState!=null){
+        if (savedInstanceState != null) {
             mQuizSize = savedInstanceState.getInt(KEY_QUIZ_SIZE);
             mQuestionNumber = savedInstanceState.getInt(KEY_QUESTION_NUMBER);
             QUIZ_NUMBER = savedInstanceState.getInt(KEY_QUIZ_NUMBER);
@@ -94,7 +95,7 @@ public class ActivityQuiz extends AppCompatActivity {
         } else {
             mQuizSize = 10;
             Cursor c = getContentResolver().query(QuizDBContract.QuizEntry.CONTENT_URI, new String[]{QuizDBContract.QuizEntry._ID}, null, null, null);
-            if (c.moveToFirst()){
+            if (c.moveToFirst()) {
                 QUIZ_NUMBER = c.getCount() + 1;
             } else {
                 QUIZ_NUMBER = QuizScorer.sQuizNumber + 1;
@@ -104,7 +105,7 @@ public class ActivityQuiz extends AppCompatActivity {
             mCurrentSeconds = maxTime;
         }
 
-       // selectDifficultyLevel();
+        // selectDifficultyLevel();
         sQuizScorer = QuizScorer.getInstance(this, mQuizSize, QUIZ_NUMBER);
 //        sIndividualQuestions = QuestionsHandling.getInstance(this.getApplicationContext(), QUIZ_NUMBER).getRandomQuestionSet(mQuizSize, QUIZ_NUMBER);
 
@@ -112,47 +113,49 @@ public class ActivityQuiz extends AppCompatActivity {
 //        mCardView = (CardView) findViewById(R.id.card_view);
 //        mListView = (ListView)rootview.findViewById(R.id.choices_listview);
 
-        RemoteQuestionService questionsService = new RemoteQuestionService();
-        questionsService.getQuestions(new Callback<RemoteQuestionService.Questions>() {
+        RemoteService questionsService = new RemoteService();
+        questionsService.getWiseService().getQuestions().enqueue(new Callback<Questions>() {
             @Override
-            public void onResponse(Call<RemoteQuestionService.Questions> call, Response<RemoteQuestionService.Questions> response) {
+            public void onResponse(Call<Questions> call, Response<Questions> response) {
                 start(response.body().getQuestions());
             }
 
             @Override
-            public void onFailure(Call<RemoteQuestionService.Questions> call, Throwable t) {
+            public void onFailure(Call<Questions> call, Throwable t) {
                 start(new LocalQuestionService(getBaseContext()).getQuestions(10));
             }
         });
 
     }
-protected void selectDifficultyLevel()
-{
-    Intent intent = new Intent(this, ActivityPostQuiz.class);
-    intent.putExtra(ActivityPostQuiz.KEY_QUIZ_SIZE, mQuizSize);
-    intent.putExtra(ActivityPostQuiz.KEY_QUIZ_NUMBER, QUIZ_NUMBER);
-    startActivity(intent);
-}
+
+    protected void selectDifficultyLevel() {
+        Intent intent = new Intent(this, ActivityPostQuiz.class);
+        intent.putExtra(ActivityPostQuiz.KEY_QUIZ_SIZE, mQuizSize);
+        intent.putExtra(ActivityPostQuiz.KEY_QUIZ_NUMBER, QUIZ_NUMBER);
+        startActivity(intent);
+    }
+
     private void start(List<IndividualQuestion> questions) {
         sIndividualQuestions = questions;
-        mNumberTextView = (TextView)findViewById(R.id.questionNumber_textview);
-        mCategoryTextView = (TextView)findViewById(R.id.category_textview);
-        mSecondsTextview = (TextView)findViewById(R.id.seconds_display);
+        mNumberTextView = (TextView) findViewById(R.id.questionNumber_textview);
+        mCategoryTextView = (TextView) findViewById(R.id.category_textview);
+        mSecondsTextview = (TextView) findViewById(R.id.seconds_display);
         mSecondsTextview.setText(Integer.toString(mCurrentSeconds));
-        mFrameLayout = (FrameLayout)findViewById(R.id.card_framelayout);
-        mProgressBar = (ProgressBar)findViewById(R.id.progressBar);
+        mFrameLayout = (FrameLayout) findViewById(R.id.card_framelayout);
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mProgressBar.setMax(maxTime);
         mProgressBar.setProgress(mCurrentSeconds);
-        mCountDownTimer = new CountDownTimer((mCurrentSeconds+2)*1000,1000) {
+        mCountDownTimer = new CountDownTimer((mCurrentSeconds + 2) * 1000, 1000) {
             int mTicknumber = 0;
+
             @Override
             public void onTick(long l) {
                 mSecondsTextview.setText(Integer.toString(mCurrentSeconds));
                 mProgressBar.setProgress(mCurrentSeconds);
 //                Log.d("timer", "ontick" + Integer.toString(mTicknumber++) + ": " + Integer.toString(mCurrentSeconds));
-                if (mCurrentSeconds<=0){
+                if (mCurrentSeconds <= 0) {
                     mSecondsTextview.setTextColor(getResources().getColor(R.color.wrongAnswerRed));
-                    if (mCurrentSeconds<0){
+                    if (mCurrentSeconds < 0) {
                         mFrameLayout.setClickable(false);
                     }
                 }
@@ -166,7 +169,7 @@ protected void selectDifficultyLevel()
                 IndividualQuestion currentQuestion = sIndividualQuestions.get(mQuestionNumber);
                 sQuizScorer.addQuestionScorer(currentQuestion, mQuestionNumber, QuestionScorer.NO_ANSWER);
                 goToNextQuestion();
-                mTicknumber=0;
+                mTicknumber = 0;
             }
         };
 
@@ -183,7 +186,7 @@ protected void selectDifficultyLevel()
 
     @Override
     protected void onStop() {
-        if (mCountDownTimer!=null) {
+        if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
         }
         super.onStop();
@@ -191,7 +194,7 @@ protected void selectDifficultyLevel()
 
     @Override
     protected void onDestroy() {
-        if (mCountDownTimer!=null){
+        if (mCountDownTimer != null) {
             mCountDownTimer.cancel();
         }
         mCountDownTimer = null;
@@ -208,26 +211,24 @@ protected void selectDifficultyLevel()
     }
 
     @TargetApi(21)
-    private void setupWindowAnimations(){
-        Slide slide = (Slide)TransitionInflater.from(this).inflateTransition(R.transition.activity_slide);
+    private void setupWindowAnimations() {
+        Slide slide = (Slide) TransitionInflater.from(this).inflateTransition(R.transition.activity_slide);
         getWindow().setEnterTransition(slide);
     }
 
     //updates the mCurrentDisplayQuestion object and text of the respective textviews
-    private void setAndUpdateChoiceTextViews(int questionNumber){
-        if (currentVersionCode>=13){
+    private void setAndUpdateChoiceTextViews(int questionNumber) {
+        if (currentVersionCode >= 13) {
             updateFragmentAnimated();
         } else {
             updateFragmentTraditional();
         }
-        mNumberTextView.setText(Integer.toString(mQuestionNumber+1));
+        mNumberTextView.setText(Integer.toString(mQuestionNumber + 1));
 //        IndividualQuestion individualQuestion = sIndividualQuestions.get(questionNumber);
 //        mCategoryTextView.setText(individualQuestion.category);
 
-        if (mCountDownTimer==null)
-        {
-            mCountDownTimer = new CountDownTimer((mCurrentSeconds+2)*1000,1000)
-            {
+        if (mCountDownTimer == null) {
+            mCountDownTimer = new CountDownTimer((mCurrentSeconds + 2) * 1000, 1000) {
                 @Override
                 public void onTick(long l) {
                     mProgressBar.setProgress(mCurrentSeconds);
@@ -256,11 +257,11 @@ protected void selectDifficultyLevel()
     //updates question number by +=1
     private void goToNextQuestion() {
         doVibration(hasVibrator);
-        if (mQuestionNumber<mQuizSize-1) {
+        if (mQuestionNumber < mQuizSize - 1) {
             mQuestionNumber += 1;
             setAndUpdateChoiceTextViews(mQuestionNumber);
             mSecondsTextview.setTextColor(getResources().getColor(R.color.darker_gray));
-            mCurrentSeconds=maxTime;
+            mCurrentSeconds = maxTime;
             mCountDownTimer.cancel();
             mCountDownTimer.start();
         } else {
@@ -269,23 +270,23 @@ protected void selectDifficultyLevel()
     }
 
     //updates question number by -=1
-    private void goToPreviousQuestion(){
-        if (mQuestionNumber>0) {
-            mQuestionNumber-=1;
+    private void goToPreviousQuestion() {
+        if (mQuestionNumber > 0) {
+            mQuestionNumber -= 1;
             setAndUpdateChoiceTextViews(mQuestionNumber);
         }
     }
 
-    private void updateFragmentTraditional(){
+    private void updateFragmentTraditional() {
         android.support.v4.app.Fragment fragmentQuestion = FragmentQuestion.getInstance(sIndividualQuestions.get(mQuestionNumber));
         getSupportFragmentManager().beginTransaction().replace(R.id.card_framelayout, fragmentQuestion).commit();
     }
 
     @TargetApi(13)
-    private void updateFragmentAnimated(){
+    private void updateFragmentAnimated() {
         android.app.Fragment fragmentQuestion = FragmentQuestionHoneycomb.getInstance(sIndividualQuestions.get(mQuestionNumber));
         android.app.FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        if (mQuestionNumber>0) {
+        if (mQuestionNumber > 0) {
             fragmentTransaction
 
                     // Replace the default fragment animations with animator resources
@@ -312,9 +313,9 @@ protected void selectDifficultyLevel()
                 .commit();
     }
 
-    public void addQuestionScorer(View v){
+    public void addQuestionScorer(View v) {
         int chosenAnswer = -1;
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.choice1:
                 chosenAnswer = 0;
                 break;
@@ -338,8 +339,8 @@ protected void selectDifficultyLevel()
         }
     }
 
-    public void endQuiz(){
-        if (sQuizScorer.getQuestionScorers().size()==mQuizSize) {
+    public void endQuiz() {
+        if (sQuizScorer.getQuestionScorers().size() == mQuizSize) {
             ArrayList<QuestionScorer> questionScorers = sQuizScorer.getQuestionScorers();
             if (questionScorers != null) {
                 mCountDownTimer.cancel();
@@ -363,10 +364,10 @@ protected void selectDifficultyLevel()
         }
     }
 
-    public void doVibration(boolean hasVibrator){
-        if (hasVibrator){
-            if (mVibrator == null){
-                mVibrator = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+    public void doVibration(boolean hasVibrator) {
+        if (hasVibrator) {
+            if (mVibrator == null) {
+                mVibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
             }
             mVibrator.vibrate(vibrationMillis);
         }
