@@ -2,6 +2,7 @@ package com.avinashdavid.trivialtrivia.UI;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Build;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -14,6 +15,7 @@ import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avinashdavid.trivialtrivia.R;
@@ -23,6 +25,8 @@ import java.io.IOException;
 
 public class ActivityWelcomePage extends AppCompatActivity {
 
+    private String username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -31,7 +35,10 @@ public class ActivityWelcomePage extends AppCompatActivity {
         if (Build.VERSION.SDK_INT>=21) {
             setupWindowAnimations();
         }
-        Boolean isUserLoggedIn = false;
+//        Boolean isUserLoggedIn = false;
+
+        username = getIntent().getStringExtra("username");
+        ((TextView)findViewById(R.id.toolbarText)).setText(username);
 
         ImageView imageView = (ImageView)findViewById(R.id.imageview_welcome_page);
         imageView.getLayoutParams().height = 300;
@@ -42,6 +49,7 @@ public class ActivityWelcomePage extends AppCompatActivity {
         ((ImageView)findViewById(R.id.imageview_instructions)).setImageDrawable(getRoundedDrawable("instructions.png"));
         ((ImageView)findViewById(R.id.imageview_acknowledgments)).setImageDrawable(getRoundedDrawable("ack.jpg"));
         ((ImageView)findViewById(R.id.imageview_socialize)).setImageDrawable(getRoundedDrawable("socialize.png"));
+        ((ImageView)findViewById(R.id.imageview_logout)).setImageDrawable(getRoundedDrawable("logout.png"));
 
         CardView startCardview = (CardView)findViewById(R.id.card_view_start_game);
         startCardview.setOnClickListener(new View.OnClickListener() {
@@ -97,18 +105,34 @@ public class ActivityWelcomePage extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        if(extras != null) {
-            String userStr = extras.getString("isUserLoggedIn");
-            if (userStr != null && !userStr.isEmpty()) {
-                isUserLoggedIn = true;
+        ((CardView)findViewById(R.id.card_view_logout)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences settings = getSharedPreferences("userSession", 0);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putBoolean("LoggedIn", false);
+                editor.commit();
+                Intent intent = new Intent(ActivityWelcomePage.this, UserLogin.class);
+                startActivity(intent);
+                finish();
             }
-        }
-        if (!isUserLoggedIn) {
-            intent = new Intent(ActivityWelcomePage.this, UserLogin.class);
-            startActivity(intent);
-        }
+        });
+
+
+//        Intent intent = getIntent();
+//        Bundle extras = intent.getExtras();
+//        if(extras != null) {
+//            String userStr = extras.getString("isUserLoggedIn");
+//            if (userStr != null && !userStr.isEmpty()) {
+//                isUserLoggedIn = true;
+//            }
+//        }
+//        if (!isUserLoggedIn) {
+//            intent = new Intent(ActivityWelcomePage.this, UserLogin.class);
+//            startActivity(intent);
+//        }
+
+
     }
 
     @TargetApi(21)
