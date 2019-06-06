@@ -8,8 +8,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.avinashdavid.trivialtrivia.R;
+import com.avinashdavid.trivialtrivia.web.data.Login;
+import com.avinashdavid.trivialtrivia.web.services.RemoteService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class UserLogin extends AppCompatActivity {
 
@@ -47,23 +54,25 @@ public class UserLogin extends AppCompatActivity {
         ((Button)findViewById(R.id.button_submit)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = ((EditText)findViewById(R.id.username)).getText().toString();
-                String password = ((EditText)findViewById(R.id.password)).getText().toString();
+                final String username = ((EditText)findViewById(R.id.username)).getText().toString();
+                final String password = ((EditText)findViewById(R.id.password)).getText().toString();
 
+                RemoteService remoteService = new RemoteService();
+                remoteService.getWiseService().login(new Login(username, password)).enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        if(response.body().booleanValue()) {
+                            next(username);
+                        } else {
+                            invalidUser("Invalid Username/Password");
+                        }
+                    }
 
-                if(getResultFromLoginAPI(username,password)){
-                    SharedPreferences settings = getSharedPreferences("userSession", 0);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putBoolean("LoggedIn", true);
-                    editor.putString("username", username);
-                    editor.commit();
-
-                    Intent intent = new Intent(UserLogin.this, ActivityWelcomePage.class);
-                    intent.putExtra("isUserLoggedIn", "true");
-                    intent.putExtra("username", username);
-                    startActivity(intent);
-                    finish();
-                }
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+                        invalidUser("Unable to connect to server");
+                    }
+                });
 
             }
         });
@@ -80,12 +89,22 @@ public class UserLogin extends AppCompatActivity {
 
     }
 
-    private boolean getResultFromLoginAPI(String username, String password) {
+    private void invalidUser(String error) {
+        ((TextView)findViewById(R.id.textview_error)).setText(error);
+    }
 
-        //TODO make rest call and return true or false
-        //User authentication
+    private void next(String username) {
+        SharedPreferences settings = getSharedPreferences("userSession", 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean("LoggedIn", true);
+        editor.putString("username", username);
+        editor.commit();
 
-        return true; //TODO true for now
+        Intent intent = new Intent(UserLogin.this, ActivityWelcomePage.class);
+        intent.putExtra("isUserLoggedIn", "true");
+        intent.putExtra("username", username);
+        startActivity(intent);
+        finish();
     }
 
     @Override

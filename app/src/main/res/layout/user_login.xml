@@ -77,7 +77,16 @@
                     android:ems="10"
                     android:inputType="textPassword"
                     android:textAlignment="textStart" />
+
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/textview_error"
+                android:layout_width="379dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@color/wrongAnswerRed" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -92,7 +101,7 @@
 
                 <Button
                     android:id="@+id/button_register"
-                    android:layout_width="188dp"
+                    android:layout_width="190dp"
                     android:layout_height="wrap_content"
                     android:text="@string/register_button" />
 
