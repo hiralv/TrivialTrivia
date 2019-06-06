@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.transition.Fade;
 import android.transition.TransitionInflater;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,6 +37,13 @@ public class ActivityWelcomePage extends AppCompatActivity {
 //        Boolean isUserLoggedIn = false;
 
         username = getIntent().getStringExtra("username");
+        if(username == null) {
+            username = "Guest";
+            (findViewById(R.id.card_view_socialize)).setVisibility(View.GONE);
+            ((TextView)findViewById(R.id.textview_logout)).setText("Register");
+            ((TextView)findViewById(R.id.textview_logout_subtitle)).setText("Let's Do it");
+        }
+
         ((TextView)findViewById(R.id.toolbarText)).setText(username);
 
         ImageView imageView = (ImageView)findViewById(R.id.imageview_welcome_page);

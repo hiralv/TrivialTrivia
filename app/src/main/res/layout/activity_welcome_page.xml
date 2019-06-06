@@ -264,33 +264,34 @@
 
                 <RelativeLayout
                     android:id="@+id/imagecontainer5"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
                     android:paddingStart="@dimen/activity_horizontal_margin"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
                     android:paddingEnd="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin">
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingBottom="@dimen/activity_vertical_margin">
 
                     <ImageView
                         android:id="@+id/imageview_socialize"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"/>
+                        android:scaleType="fitCenter" />
 
                 </RelativeLayout>
 
                 <LinearLayout
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/imagecontainer5"
+                    android:id="@+id/social"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical">
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/imagecontainer5"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/WelcomeHeadings"
@@ -299,11 +300,11 @@
                         android:text="@string/socialize" />
 
                     <TextView
+                        style="@style/StatsContent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/socialize_subtitle"
-                        style="@style/StatsContent"
-                        android:paddingBottom="0dp"/>
+                        android:paddingBottom="0dp"
+                        android:text="@string/socialize_subtitle" />
 
                 </LinearLayout>
             </RelativeLayout>
@@ -388,6 +389,7 @@
             card_view:cardUseCompatPadding="true">
 
             <RelativeLayout
+                android:id="@+id/logout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?android:attr/selectableItemBackground">
@@ -395,46 +397,48 @@
 
                 <RelativeLayout
                     android:id="@+id/imagecontainer6"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentLeft="true"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
-                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
                     android:paddingStart="@dimen/activity_horizontal_margin"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
                     android:paddingEnd="@dimen/activity_horizontal_margin"
-                    android:paddingRight="@dimen/activity_horizontal_margin">
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingBottom="@dimen/activity_vertical_margin">
 
                     <ImageView
                         android:id="@+id/imageview_logout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"/>
+                        android:scaleType="fitCenter" />
 
                 </RelativeLayout>
 
                 <LinearLayout
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/imagecontainer6"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical">
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/imagecontainer6"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/textview_logout"
+                        style="@style/WelcomeHeadings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/logout"
-                        style="@style/WelcomeHeadings"/>
+                        android:text="@string/logout" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/logout_subtitle"
+                        android:id="@+id/textview_logout_subtitle"
                         style="@style/StatsContent"
-                        android:paddingBottom="0dp"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="0dp"
+                        android:text="@string/logout_subtitle" />
 
                 </LinearLayout>
 
