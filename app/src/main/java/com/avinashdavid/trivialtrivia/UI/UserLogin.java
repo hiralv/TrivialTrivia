@@ -43,7 +43,7 @@ public class UserLogin extends AppCompatActivity {
 
         }
 
-        ((Button)findViewById(R.id.button_register)).setOnClickListener(new View.OnClickListener() {
+        ((TextView)findViewById(R.id.or)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(UserLogin.this, UserRegistration.class);
@@ -77,7 +77,7 @@ public class UserLogin extends AppCompatActivity {
             }
         });
 
-        ((Button)findViewById(R.id.continue_as_guest)).setOnClickListener(new View.OnClickListener() {
+        ((TextView)findViewById(R.id.continue_as_guest)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(UserLogin.this, ActivityWelcomePage.class);
