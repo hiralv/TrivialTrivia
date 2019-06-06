@@ -94,17 +94,28 @@
     </string-array>
 
     <!--Select Difficulty Level-->
+    <string name="select_topic">Select A Topic</string>
     <string name="select_difficulty_level">Select Difficulty Level</string>
-    <string name="submit_difficulty_level_button">On Your Mark, Get Set, Go!...</string>
+
+    <string name="submit_terrain_button">On Your Mark, Get Set, Go!...</string>
     <string name="set_difficulty_level">Set The Terrain</string>
 
-    <string-array name="difficulty_level">
+    <string-array name="topics">
+        <item>All</item>
+        <item>Academy of Finance</item>
+        <item>Personal Finance</item>
+        <item>Finance planing</item>
+        <item>Business Class</item>
+    </string-array>
+
+    <string-array name="difficulty_levels">
         <item>Easy</item>
         <item>Medium</item>
         <item>Difficult</item>
     </string-array>
 
-    <string name="difficulty_level_prompt">Select Gender</string>
+    <string name="difficulty_level_prompt">Select Difficulty Level</string>
+    <string name="topic_prompt">Select Topic</string>
 
     <!--Login-->
     <string name="username">Username</string>

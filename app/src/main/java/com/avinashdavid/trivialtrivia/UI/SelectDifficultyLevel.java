@@ -16,6 +16,9 @@ package com.avinashdavid.trivialtrivia.UI;
 public class SelectDifficultyLevel extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Spinner difficultyLevelSpinner;
     ArrayAdapter<CharSequence> difficultyLevelAdapter;
+
+    Spinner topicSpinner;
+    ArrayAdapter<CharSequence> topicAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -25,11 +28,17 @@ public class SelectDifficultyLevel extends AppCompatActivity implements AdapterV
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        difficultyLevelSpinner = (Spinner)findViewById(R.id.difficulty_level_dd);
-        difficultyLevelAdapter = ArrayAdapter.createFromResource(this, R.array.difficulty_level, R.layout.spinner_text);
+        difficultyLevelSpinner = (Spinner)findViewById(R.id.difficulty_levels_dd);
+        difficultyLevelAdapter = ArrayAdapter.createFromResource(this, R.array.difficulty_levels, R.layout.spinner_text);
         difficultyLevelAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
         difficultyLevelSpinner.setAdapter(difficultyLevelAdapter);
         difficultyLevelSpinner.setOnItemSelectedListener(this);
+
+        topicSpinner = (Spinner)findViewById(R.id.topics_dd);
+        topicAdapter = ArrayAdapter.createFromResource(this, R.array.topics, R.layout.spinner_text);
+        topicAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown);
+        topicSpinner.setAdapter(topicAdapter);
+        topicSpinner.setOnItemSelectedListener(this);
 
         String str = difficultyLevelSpinner.getSelectedItem().toString();
        // difficultyLevelSpinner.setOnItemSelectedListener(this);
@@ -54,6 +63,7 @@ public class SelectDifficultyLevel extends AppCompatActivity implements AdapterV
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         DataHolder.difficultyLevel = difficultyLevelSpinner.getSelectedItem().toString();
+        DataHolder.topic = difficultyLevelSpinner.getSelectedItem().toString();
     }
 
     @Override
