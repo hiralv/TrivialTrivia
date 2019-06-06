@@ -68,6 +68,16 @@ public class UserLogin extends AppCompatActivity {
             }
         });
 
+        ((Button)findViewById(R.id.continue_as_guest)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserLogin.this, ActivityWelcomePage.class);
+                intent.putExtra("guest", "true");
+                startActivity(intent);
+                finish();
+            }
+        });
+
     }
 
     private boolean getResultFromLoginAPI(String username, String password) {

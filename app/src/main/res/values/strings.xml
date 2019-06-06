@@ -164,5 +164,7 @@
         <item>College</item>
     </string-array>
     <string name="reg_grade_prompt">Select Grade</string>
+    <string name="continue_as_guest">Continue As Guest</string>
+    <string name="or">OR</string>
 
 </resources>
