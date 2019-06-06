@@ -43,12 +43,24 @@
             android:theme="@style/AppTheme.Launcher"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".UI.ActivitySocialize"
+            android:parentActivityName=".UI.ActivityWelcomePage"
+            android:theme="@style/AppTheme.Launcher"
+            android:screenOrientation="portrait">
+        </activity>
 
         <service android:name=".services.InsertRecordsService"/>
 
         <activity
             android:name=".UI.ActivityInstructions"
             android:parentActivityName=".UI.ActivityWelcomePage"
+            android:theme="@style/AppTheme.Launcher"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name=".UI.ActivityAcknowledgments"
+            android:parentActivityName=".UI.ActivityAcknowledgments"
             android:theme="@style/AppTheme.Launcher"
             android:screenOrientation="portrait">
         </activity>

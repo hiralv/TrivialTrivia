@@ -37,10 +37,11 @@ public class ActivityWelcomePage extends AppCompatActivity {
         imageView.getLayoutParams().height = 300;
         imageView.getLayoutParams().width = 300;
 
-        ((ImageView)findViewById(R.id.imageview_start)).setImageDrawable(getRoundedDrawable("start.jpg"));
+        ((ImageView)findViewById(R.id.imageview_start)).setImageDrawable(getRoundedDrawable("start.png"));
         ((ImageView)findViewById(R.id.imageview_statistics)).setImageDrawable(getRoundedDrawable("statistics.jpg"));
         ((ImageView)findViewById(R.id.imageview_instructions)).setImageDrawable(getRoundedDrawable("instructions.png"));
-        ((ImageView)findViewById(R.id.imageview_acknowledgments)).setImageDrawable(getRoundedDrawable("acknowledgements.jpg"));
+        ((ImageView)findViewById(R.id.imageview_acknowledgments)).setImageDrawable(getRoundedDrawable("ack.jpg"));
+        ((ImageView)findViewById(R.id.imageview_socialize)).setImageDrawable(getRoundedDrawable("socialize.png"));
 
         CardView startCardview = (CardView)findViewById(R.id.card_view_start_game);
         startCardview.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +77,14 @@ public class ActivityWelcomePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityWelcomePage.this, ActivityInstructions.class);
+                startActivity(intent);
+            }
+        });
+
+        ((CardView)findViewById(R.id.card_view_socialize)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ActivityWelcomePage.this, ActivitySocialize.class);
                 startActivity(intent);
             }
         });
