@@ -87,12 +87,10 @@
     <string name="no_choice">(Answer not attempted)</string>
 
     <string-array name="category_names">
-        <item>General</item>
-        <item>Science</item>
-        <item>World</item>
-        <item>History</item>
-        <item>Entertainment</item>
-        <item>Sports</item>
+        <item>Academy of Finance</item>
+        <item>Business Class</item>
+        <item>Finance planing</item>
+        <item>Personal Finance</item>
     </string-array>
 
     <!--Select Difficulty Level-->

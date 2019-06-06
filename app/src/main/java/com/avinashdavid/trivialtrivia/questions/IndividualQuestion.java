@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Created by avinashdavid on 10/31/16.
@@ -25,11 +26,9 @@ public class IndividualQuestion implements Parcelable {
     public static final int CATEGORY_ENTERTAINMENT = 4;
     public static final int CATEGORY_SPORTS = 5;
 
-    public static final ArrayList<String> categoryList = new ArrayList<String>(Arrays.asList("general","science","world","history","entertainment","sports"));
+    public static final ArrayList<String> categoryList = new ArrayList<>(Arrays.asList(
+            "Academy of Finance", "Business Class", "Finance planing", "Personal Finance"));
 
-    public static ArrayList<String> getCategoryList() {
-        return categoryList;
-    }
 
     public IndividualQuestion(String category, String question, String[] answersList, int correctAnswer, String rationale) {
         this.categoryText = category;
