@@ -156,10 +156,10 @@ public class ActivityStatistics extends AppCompatActivity implements AdapterView
             categoryScoreReports = CategoryStatisticsCalculator.getCategoryPerformanceReports();
         }
 
-        double[] thiscategory = categoryScoreReports.get(i);
 
-        double totalAnswered = thiscategory[CategoryStatisticsCalculator.TOTAL_QUESTIONS_ANSWERED];
-        if (totalAnswered>0){
+        if (i>0){
+            double[] thiscategory = categoryScoreReports.get(i);
+            double totalAnswered = thiscategory[CategoryStatisticsCalculator.TOTAL_QUESTIONS_ANSWERED];
             catTotalquestions.setText(getString(R.string.format_integer, totalAnswered));
             catCorrectAnswers.setText(getString(R.string.format_integer, thiscategory[CategoryStatisticsCalculator.TOTAL_QUESTIONS_CORRECT]));
             catPercentage.setText(getString(R.string.format_percent, thiscategory[CategoryStatisticsCalculator.PERCENTAGE]));
@@ -177,7 +177,7 @@ public class ActivityStatistics extends AppCompatActivity implements AdapterView
                 catTimewrong.setText(getString(R.string.minus_sign));
             }
         } else {
-            catTotalquestions.setText(getString(R.string.format_integer, totalAnswered));
+            catTotalquestions.setText("None");
             catCorrectAnswers.setText(getString(R.string.minus_sign));
             catPercentage.setText(getString(R.string.minus_sign));
             catTimeoverall.setText(getString(R.string.minus_sign));
