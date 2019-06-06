@@ -2,6 +2,7 @@ package com.avinashdavid.trivialtrivia.web.services;
 
 import com.avinashdavid.trivialtrivia.web.data.Login;
 import com.avinashdavid.trivialtrivia.web.data.Questions;
+import com.avinashdavid.trivialtrivia.web.data.Score;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -15,4 +16,8 @@ public interface WiseService {
 
     @POST("/login")
     Call<Boolean> login(@Body Login login);
+
+    @POST("/quizresult")
+    Call<Void> quizResult(@Body Score login);
+
 }
