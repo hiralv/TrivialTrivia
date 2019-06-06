@@ -224,8 +224,8 @@ public class ActivityQuiz extends AppCompatActivity {
             updateFragmentTraditional();
         }
         mNumberTextView.setText(Integer.toString(mQuestionNumber + 1));
-//        IndividualQuestion individualQuestion = sIndividualQuestions.get(questionNumber);
-//        mCategoryTextView.setText(individualQuestion.category);
+        IndividualQuestion individualQuestion = sIndividualQuestions.get(questionNumber);
+        mCategoryTextView.setText(individualQuestion.categoryText);
 
         if (mCountDownTimer == null) {
             mCountDownTimer = new CountDownTimer((mCurrentSeconds + 2) * 1000, 1000) {
