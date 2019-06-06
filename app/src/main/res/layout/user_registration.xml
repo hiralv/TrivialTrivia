@@ -88,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPassword" />
+                android:inputType="text" />
 
             <TextView
                 android:paddingTop="@dimen/activity_vertical_margin"
@@ -102,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPassword" />
+                android:inputType="text" />
 
             <TextView
                 android:paddingTop="@dimen/activity_vertical_margin"
@@ -116,7 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPassword" />
+                android:inputType="text" />
 
             <TextView
                 android:paddingTop="@dimen/activity_vertical_margin"
@@ -130,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPassword" />
+                android:inputType="text" />
 
             <TextView
                 android:paddingTop="@dimen/activity_vertical_margin"
@@ -138,6 +138,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/reg_dateOfBirth"
                 style="@style/StatsTitles"/>
+
+            <EditText
+                android:id="@+id/reg_dateOfBirth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="date" />
 
             <TextView
                 android:paddingTop="@dimen/activity_vertical_margin"
@@ -192,6 +199,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login_button" />
+
+            <TextView
+                android:id="@+id/reg_invalid"
+                style="@style/StatsTitles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/reg_invalid"
+                android:textColor="@color/wrongAnswerRed"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/reg_invalid_password"
+                style="@style/StatsTitles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/reg_passwordNotMatched"
+                android:textColor="@color/wrongAnswerRed"
+                android:visibility="invisible" />
+
 
         </LinearLayout>
 
