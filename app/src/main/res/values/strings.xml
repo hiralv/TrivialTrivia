@@ -120,7 +120,7 @@
     <!--Login-->
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="login_button">Submit</string>
+    <string name="login_button">Login</string>
     <string name="register_button">Register</string>
 
     <!--Register-->
@@ -176,6 +176,8 @@
     </string-array>
     <string name="reg_grade_prompt">Select Grade</string>
     <string name="continue_as_guest">Continue As Guest</string>
-    <string name="or">OR</string>
+    <!--<string name="or">OR</string>-->
+    <string name="or_1">Don\'t have an account?</string>
+    <string name="or">Create one</string>
 
 </resources>
